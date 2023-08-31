@@ -1,5 +1,6 @@
 package com.example.calculatorasfirstapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,7 +10,7 @@ import com.notkamui.keval.KevalException
 import com.notkamui.keval.keval
 
 class MainActivity : AppCompatActivity() {
-    val MATH_SYMBOLS = arrayListOf("+", "-", "*", "/")
+    private val MATH_SYMBOLS = arrayListOf("+", "-", "*", "/")
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             btnEqual.setOnClickListener {
                 etExprassion.setText(tvResult.text)
+                etExprassion.setSelection(tvResult.length())
                 tvResult.text = ""
             }
 
@@ -70,6 +72,23 @@ class MainActivity : AppCompatActivity() {
                     setSelection(leftPart.length)
                     eval()
                 }
+            }
+            //no functionality yet
+            btnDot.apply {
+                setBackgroundColor(Color.GRAY)
+                setTextColor(Color.LTGRAY)
+            }
+            btnPlusMinus.apply {
+                setBackgroundColor(Color.GRAY)
+                setTextColor(Color.LTGRAY)
+            }
+            btnBracket.apply {
+                setBackgroundColor(Color.GRAY)
+                setTextColor(Color.LTGRAY)
+            }
+            btnPersent.apply {
+                setBackgroundColor(Color.GRAY)
+                setTextColor(Color.LTGRAY)
             }
         }
 
@@ -96,8 +115,8 @@ class MainActivity : AppCompatActivity() {
         val expression = binding.etExprassion.text.toString()
         val position = binding.etExprassion.selectionStart
         var leftPart = if (expression.isEmpty()) "" else expression.substring(0 until position)
-        var rightPart = expression.substring(position)
-        var newTextToSet = ""
+        val rightPart = expression.substring(position)
+        val newTextToSet : String
 
         //  |123                - not 0
         //  123 + |123456 + 123 - not 0
@@ -136,7 +155,7 @@ class MainActivity : AppCompatActivity() {
         val position = binding.etExprassion.selectionStart
         var leftPart = if (expression.isEmpty()) "" else expression.substring(0 until position)
         var rightPart = expression.substring(position)
-        var newTextToSet = ""
+        val newTextToSet : String
 
 
         //  |123 + 123 -> no effect
